@@ -1,11 +1,19 @@
-/* styles/globals.css */
 body {
-    font-family: 'Arial', sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f4f4f4;
-  }
-  
-  h1 {
-    color: #333;
-  }
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f4;
+}
+
+/* Center the text inside h1 */
+h1 {
+  text-align: center;
+  color: #333;
+  margin-top: 20px;
+}
+
+/* If you want to center the content of the entire page, you can also apply it to the container */
+.container {
+  text-align: center;
+  margin-top: 50px;
+}
