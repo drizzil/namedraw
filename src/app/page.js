@@ -1,3 +1,7 @@
+'use client';
+
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { getNames } from '../../lib/db';
 
 export default async function HomePage() {
@@ -8,35 +12,39 @@ export default async function HomePage() {
     console.error('Error fetching names:', err);
   }
 
-  return (
-    
-    
+  const [selectedName, setSelectedName] = useState('');
+  const router = useRouter();
 
-<div class="dropdown">
-<button onlick="myFunction()" class="dropbtn">Dropdown</button>
-<div id="myDropdown" class="dropdown-content">
-  <a href="#">Link 1</a>
-  <a href="#">Link 2</a>
-  <a href="#">Link 3</a>
-</div>
-</div>
-  );
-
-  function myFunction() {
-    document.getElementById("myDropdown").classList.toggle("show");
-  }
-  
-  // Close the dropdown menu if the user clicks outside of it
-  window.onclick = function(event) {
-    if (!event.target.matches('.dropbtn')) {
-      var dropdowns = document.getElementsByClassName("dropdown-content");
-      var i;
-      for (i = 0; i < dropdowns.length; i++) {
-        var openDropdown = dropdowns[i];
-        if (openDropdown.classList.contains('show')) {
-          openDropdown.classList.remove('show');
-        }
-      }
+  const handleNextClick = () => {
+    if (selectedName) {
+      router.push({
+        pathname: '/nextpage', // New page route
+        query: { name: selectedName }, // Pass selected name in query
+      });
+    } else {
+      alert('Please select a name!');
     }
-  }
+  };
+
+  return (
+    <div className="container">
+      <h1>Name Selection</h1>
+      <select
+        value={selectedName}
+        onChange={(e) => setSelectedName(e.target.value)}
+        className="dropdown"
+      >
+        <option value="">Select your name</option>
+        {names.map((nameEntry) => (
+          <option key={nameEntry.id} value={nameEntry.firstname}>
+            {nameEntry.firstname}
+          </option>
+        ))}
+      </select>
+      <br />
+      <button onClick={handleNextClick} className="next-button">
+        Next
+      </button>
+    </div>
+  );
 }
